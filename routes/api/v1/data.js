@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
-
+const keys = require("./keys");
 const { Client, Query } = require("pg");
 
-const dbUser = "dean";
-const dbUserPass = "abc";
-const dbHost = "localhost:5432";
-const dbName = "neighborhoods";
 const connStr =
-  "postgres://" + dbUser + ":" + dbUserPass + "@" + dbHost + "/" + dbName;
+  "postgres://" +
+  keys.dbUser +
+  ":" +
+  keys.dbUserPass +
+  "@" +
+  keys.dbHost +
+  "/" +
+  keys.dbName;
 
 router.get("/data", (req, res) => {
   const dbQuery =
