@@ -6,18 +6,16 @@ export const getData = () => dispatch => {
     type: GETTING_DATA
   });
 
-  axios
-    .get("api/v1/data")
-    .then(res =>
-      dispatch({
-        type: GET_DATA,
-        payload: res.data
-      })
-    )
-    .catch(err => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      });
-    });
+  axios.get("api/v1/data").then(res =>
+    dispatch({
+      type: GET_DATA,
+      payload: res.data
+    })
+  );
+  // .catch(err => {
+  //   dispatch({
+  //     type: GET_ERRORS,
+  //     payload: err.response.data
+  //   });
+  // });
 };

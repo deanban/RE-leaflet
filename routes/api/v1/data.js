@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const keys = require("./keys");
 const { Client, Query } = require("pg");
+var fs = require("fs");
 
 const connStr =
   "postgres://" +
@@ -15,7 +16,7 @@ const connStr =
 
 router.get("/data", (req, res) => {
   const dbQuery =
-    "SELECT row_to_json(fc) FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features FROM (SELECT 'Feature' As type, ST_AsGeoJSON(lg.geom)::json As geometry, row_to_json((gid, name)) As properties FROM neighborhood_boundaries As lg) As f) As fc limit 10";
+    "SELECT row_to_json(fc)FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features FROM (SELECT 'Feature' As type, ST_AsGeoJSON(lg.geom)::json As geometry, row_to_json((SELECT l FROM (SELECT gid, name) As l)) As properties FROM neighborhood_boundaries As lg   ) As f )  As fc;";
   const client = new Client(connStr);
   client.connect();
 
@@ -27,7 +28,18 @@ router.get("/data", (req, res) => {
 
   query.on("end", result => {
     // console.log(result);
-    res.send(result.rows[0].row_to_json);
+    const data = result.rows[0].row_to_json;
+
+    setTimeout(() => {
+      fs.writeFile("neighborhoods.geojson", JSON.stringify(data), function(
+        err,
+        data
+      ) {
+        if (err) console.log(err);
+        console.log("Successfully Written to File.");
+      });
+    }, 5000);
+    res.send(data);
     res.end();
   });
 });
@@ -68,7 +80,8 @@ router.get("/data/filter", (req, res) => {
     });
     query.on("end", result => {
       // console.log(result);
-      res.send(result.rows[0].row_to_json);
+      const data = result.rows[0].row_to_json;
+      res.send(data);
       res.end();
     });
   }

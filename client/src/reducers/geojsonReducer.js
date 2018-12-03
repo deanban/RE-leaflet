@@ -2,7 +2,7 @@ import { GETTING_DATA, GET_DATA } from "../actions/type";
 
 const initialState = {
   loading: false,
-  data: {}
+  geojson: {}
 };
 
 export default function(state = initialState, action) {
@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
     case GET_DATA:
       return {
         ...state,
-        data: action.payload,
+        geojson: action.payload,
         loading: false
       };
 
