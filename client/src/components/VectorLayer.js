@@ -1,66 +1,37 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getData } from "../actions/geojsonAction";
+import { GeoJSON } from "react-leaflet";
 
-import VectorGrid from "react-leaflet-vectorgrid";
+import { getData } from "../actions/geojsonAction";
+import gdata from "../neighborhoods.json";
 
 class VectorLayer extends Component {
-  state = {
-    feature: null,
-    data: null
-  };
-
-  componentWillMount() {
+  componentDidMount() {
     this.props.getData();
-    // fetch("api/v1/data")
-    //   .then(res => res.json())
-    //   .then(result => {
-    //     this.setState({
-    //       data: result
-    //     });
-    //   });
   }
 
-  //   onClick = e => {
-  //     const feature = e.target.feature;
-  //     console.log("clicked", feature.properties);
-  //   };
-
+  onEachFeature(feature, layer) {
+    if (feature.properties && feature.properties.name) {
+      layer.bindPopup(feature.properties.name);
+    }
+  }
   render() {
-    const options = {
-      data: this.props.data,
-      //   type: "slicer",
-      //   idField: "name",
-      //   tooltip: "name",
-      popup: feature => `<div>${feature.properties.f2}</div>`,
-      style: {
-        weight: 0.5,
-        opacity: 1,
-        color: "#ccc",
-        fillColor: "#390870",
-        fillOpacity: 0.6,
-        fill: true,
-        stroke: true
-      },
-      hoverStyle: {
-        fillColor: "#390870",
-        fillOpacity: 1
-      },
-      activeStyle: {
-        fillColor: "#390870",
-        fillOpacity: 1
-      },
-      zIndex: 401
-    };
-    // debugger;
-    return <VectorGrid {...options} />;
+    console.log(this.props);
+    return (
+      <GeoJSON
+        data={gdata}
+        color="#8090a7"
+        fillColor="5a12d0"
+        weight={1}
+        onEachFeature={this.onEachFeature}
+      />
+    );
   }
 }
 
 VectorLayer.propTypes = {
-  getData: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
+  getData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

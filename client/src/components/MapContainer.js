@@ -27,12 +27,7 @@ export default class MapContainer extends Component {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
         />
-        {/* <Marker icon={myIcon} position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker> */}
-        <VectorLayer />
+        <VectorLayer center={position} />/
       </Map>
     );
   }

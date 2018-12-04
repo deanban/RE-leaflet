@@ -27,18 +27,18 @@ router.get("/data", (req, res) => {
   });
 
   query.on("end", result => {
-    // console.log(result);
     const data = result.rows[0].row_to_json;
 
-    setTimeout(() => {
-      fs.writeFile("neighborhoods.geojson", JSON.stringify(data), function(
-        err,
-        data
-      ) {
-        if (err) console.log(err);
-        console.log("Successfully Written to File.");
-      });
-    }, 5000);
+    // setTimeout(() => {
+    //   fs.writeFile("neighborhoods.geojson", JSON.stringify(data), function(
+    //     err,
+    //     data
+    //   ) {
+    //     if (err) console.log(err);
+    //     console.log("Successfully Written to File.");
+    //   });
+    // }, 5000);
+
     res.send(data);
     res.end();
   });
