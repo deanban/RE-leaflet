@@ -7,22 +7,34 @@ import { getData } from "../actions/geojsonAction";
 import gdata from "../neighborhoods.json";
 
 class VectorLayer extends Component {
+  state = {
+    name: ""
+  };
   componentDidMount() {
     this.props.getData();
   }
 
-  onEachFeature(feature, layer) {
+  onclick = e => {
+    //debugger
+    this.setState({ name: e.target.feature.properties.name });
+  };
+
+  onEachFeature = (feature, layer) => {
     if (feature.properties && feature.properties.name) {
       layer.bindPopup(feature.properties.name);
     }
-  }
+    layer.on({
+      click: this.onclick
+    });
+  };
+
   render() {
     console.log(this.props);
     return (
       <GeoJSON
         data={gdata}
-        color="#8090a7"
-        fillColor="5a12d0"
+        color="#ff6700"
+        fillColor="#a50b5e"
         weight={1}
         onEachFeature={this.onEachFeature}
       />
