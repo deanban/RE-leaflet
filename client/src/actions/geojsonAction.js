@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GETTING_DATA, GET_DATA, GET_ERRORS } from "./type";
+import { GETTING_DATA, GET_DATA, GET_ERRORS, SEND_DATA } from "./type";
 
 export const getData = () => dispatch => {
   dispatch({
@@ -19,3 +19,5 @@ export const getData = () => dispatch => {
   //   });
   // });
 };
+
+export const sendNameToApi = str => {};
