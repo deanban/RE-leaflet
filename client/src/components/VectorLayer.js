@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import axios from "axios";
 import { GeoJSON, Tooltip } from "react-leaflet";
 import { Sidebar, Tab } from "react-leaflet-sidetabs";
 // import { fromJS } from "immutable";
@@ -15,24 +17,34 @@ class VectorLayer extends Component {
     name: "",
     clicked: false,
     collapsed: false,
-    selected: "home"
+    selected: "home",
+    geodata: null,
+    error: {}
   };
 
   componentDidMount() {
-    this.props.getData();
+    // this.props.getData();
+    axios
+      .get(
+        "https://raw.githubusercontent.com/OpenDataDE/State-zip-code-GeoJSON/master/ny_new_york_zip_codes_geo.min.json"
+      )
+      .then(geojson => {
+        geojson && this.setState({ geodata: geojson.data });
+      })
+      .catch(err => this.setState({ error: err.response }));
   }
 
   onclick = e => {
     //debugger
     this.setState({
-      name: e.target.feature.properties.name,
+      name: e.target.feature.properties.ZCTA5CE10,
       clicked: true
     });
   };
 
   onEachFeature = (feature, layer) => {
-    if (feature.properties && feature.properties.name) {
-      layer.bindPopup(feature.properties.name);
+    if (feature.properties && feature.properties.ZCTA5CE10) {
+      layer.bindPopup(feature.properties.ZCTA5CE10);
     }
     layer.on("click", this.onclick);
   };
@@ -49,25 +61,32 @@ class VectorLayer extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    // const { data } = this.props;
     return (
       <div>
-        <Sidebar
-          id="sidebar"
-          collapsed={this.state.collapsed}
-          selected={this.state.selected}
-          onOpen={this.onOpen}
-          onClose={this.onClose}
-        >
-          {this.state.clicked ? <OnFeatureClick /> : null}
-        </Sidebar>
-        <GeoJSON
-          data={GJson}
-          color="#ff6700"
-          fillColor="#a50b5e"
-          weight={1}
-          onEachFeature={this.onEachFeature}
-        />
+        {this.state.geodata !== null ? (
+          <div>
+            <GeoJSON
+              data={this.state.geodata}
+              color="#ff6700"
+              fillColor="#a50b5e"
+              weight={1}
+              onEachFeature={this.onEachFeature}
+            />
+            <Sidebar
+              id="sidebar"
+              collapsed={this.state.collapsed}
+              selected={this.state.selected}
+              onOpen={this.onOpen}
+              onClose={this.onClose}
+            >
+              {this.state.clicked ? (
+                <OnFeatureClick zip={this.state.name} />
+              ) : null}
+            </Sidebar>
+          </div>
+        ) : null}
+        {/* <div>{this.state.clicked ? <OnFeatureClick /> : ""}</div> */}
       </div>
     );
   }

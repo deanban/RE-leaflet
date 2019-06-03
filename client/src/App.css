@@ -4,6 +4,7 @@
 }
 
 .App {
+  position: absolute;
   text-align: center;
   height: 100%;
   width: 100%;
@@ -11,12 +12,13 @@
 
 .map {
   /* text-align: center; */
+  position: relative;
   height: 100%;
   width: 100%;
 }
 
 /* .open-feature {
-  height: 20%;
+  margin-bottom: calc(100% + 20px);
 } */
 
 .App-logo {

@@ -1,0 +1,25 @@
+GEO.id,Id
+GEO.id2,Id2
+GEO.display-label,Geography
+HD01_VD01,Estimate; Total:
+HD02_VD01,Margin of Error; Total:
+HD01_VD02,Estimate; Owner-occupied housing units:
+HD02_VD02,Margin of Error; Owner-occupied housing units:
+HD01_VD03,Estimate; Owner-occupied housing units: - Less than high school graduate
+HD02_VD03,Margin of Error; Owner-occupied housing units: - Less than high school graduate
+HD01_VD04,Estimate; Owner-occupied housing units: - High school graduate (including equivalency)
+HD02_VD04,Margin of Error; Owner-occupied housing units: - High school graduate (including equivalency)
+HD01_VD05,Estimate; Owner-occupied housing units: - Some college or associate's degree
+HD02_VD05,Margin of Error; Owner-occupied housing units: - Some college or associate's degree
+HD01_VD06,Estimate; Owner-occupied housing units: - Bachelor's degree or higher
+HD02_VD06,Margin of Error; Owner-occupied housing units: - Bachelor's degree or higher
+HD01_VD07,Estimate; Renter-occupied housing units:
+HD02_VD07,Margin of Error; Renter-occupied housing units:
+HD01_VD08,Estimate; Renter-occupied housing units: - Less than high school graduate
+HD02_VD08,Margin of Error; Renter-occupied housing units: - Less than high school graduate
+HD01_VD09,Estimate; Renter-occupied housing units: - High school graduate (including equivalency)
+HD02_VD09,Margin of Error; Renter-occupied housing units: - High school graduate (including equivalency)
+HD01_VD10,Estimate; Renter-occupied housing units: - Some college or associate's degree
+HD02_VD10,Margin of Error; Renter-occupied housing units: - Some college or associate's degree
+HD01_VD11,Estimate; Renter-occupied housing units: - Bachelor's degree or higher
+HD02_VD11,Margin of Error; Renter-occupied housing units: - Bachelor's degree or higher
